@@ -11,12 +11,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
+import { db } from "@/db";
+import { Invoices } from "@/db/schema";
+import { cn } from "@/lib/utils";
 
-export default function Dashboard() {
+export default async function Home() {
+  const results = await db.select().from(Invoices);
+
   return (
     <main className="flex flex-col h-screen text-center gap-6 max-w-5xl mx-auto my-12">
       <div className="flex justify-between">
-        <h1 className="text-5xl font-bold">Invoices</h1>
+        <h1 className="text-3xl font-semibold">Invoices</h1>
         <p>
           <Button className="inline-flex gap-2" variant="ghost" asChild>
             <Link href="/invoices/new">
@@ -38,23 +43,56 @@ export default function Dashboard() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium text-left p-4">
-              <span className="font-semibold">10/13/2024</span>
-            </TableCell>
-            <TableCell className="text-left p-4">
-              <span className="font-semibold">Pranav</span>
-            </TableCell>
-            <TableCell className="text-left p-4">
-              <span className="">pranav@gmail.com</span>
-            </TableCell>
-            <TableCell className="text-center p-4">
-              <Badge className="rounded-full">Open</Badge>
-            </TableCell>
-            <TableCell className="text-right p-4">
-              <span className="font-semibold">$2.4</span>
-            </TableCell>
-          </TableRow>
+          {results.map((result) => {
+            return (
+              <TableRow key={result.id}>
+                <TableCell className="font-medium text-left p-0">
+                  <Link
+                    href={`/invoices/${result.id}`}
+                    className="font-semibold block p-4"
+                  >
+                    {new Date(result.createTs).toLocaleDateString()}
+                  </Link>
+                </TableCell>
+                <TableCell className="text-left p-0">
+                  <Link
+                    href={`/invoices/${result.id}`}
+                    className="font-semibold block p-4"
+                  >
+                    Pranav
+                  </Link>
+                </TableCell>
+                <TableCell className="text-left p-0">
+                  <Link href={`/invoices/${result.id}`} className="block p-4">
+                    pranav@gmail.com
+                  </Link>
+                </TableCell>
+                <TableCell className="text-center p-0">
+                  <Link href={`/invoices/${result.id}`} className="block p-4">
+                    <Badge
+                      className={cn(
+                        "rounded-full capitalize",
+                        result.status === "open" && "bg-blue-500",
+                        result.status === "paid" && "bg-green-600",
+                        result.status === "void" && "bg-zinc-700",
+                        result.status === "uncollectible" && "bg-red-600"
+                      )}
+                    >
+                      {result.status}
+                    </Badge>
+                  </Link>
+                </TableCell>
+                <TableCell className="text-right p-0">
+                  <Link
+                    href={`/invoices/${result.id}`}
+                    className="font-semibold block p-4"
+                  >
+                    $ {(result.value / 100).toFixed(2)}
+                  </Link>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </main>
