@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <main className="h-full my-12">
       <Container>
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-6">
           <h1 className="text-3xl font-semibold">Invoices</h1>
           <p>
             <Button className="inline-flex gap-2" variant="ghost" asChild>
