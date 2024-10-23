@@ -1,22 +1,26 @@
 "use client";
 import { createAction } from "@/app/actions";
-import { Button } from "@/components/ui/button";
+import SubmitButton from "@/components/SubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, startTransition } from "react";
 
 export default function Home() {
   const [state, setState] = useState("ready");
+
   async function handleOnSubmit(event: SyntheticEvent) {
     event.preventDefault();
     if (state == "pending") return;
     setState("pending");
     const target = event.target as HTMLFormElement;
-    const formData = new FormData(target);
-    await createAction(formData);
-    console.log("hey");
+    startTransition(async () => {
+      const formData = new FormData(target);
+      await createAction(formData);
+      console.log("hey");
+    });
   }
+
   return (
     <main className="flex flex-col h-screen gap-6 max-w-5xl mx-auto my-12">
       <div className="flex justify-between">
@@ -65,7 +69,7 @@ export default function Home() {
           <Textarea id="description" name="description" />
         </div>
         <div>
-          <Button className="w-full">Submit</Button>
+          <SubmitButton />
         </div>
       </form>
     </main>
