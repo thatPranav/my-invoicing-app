@@ -8,6 +8,13 @@
       "when": 1729521815257,
       "tag": "0000_happy_snowbird",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1729766267593,
+      "tag": "0001_famous_warpath",
+      "breakpoints": true
     }
   ]
 }
