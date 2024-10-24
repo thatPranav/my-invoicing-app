@@ -101,6 +101,42 @@ export default function SignInPage() {
           name="verifications"
           className="w-full space-y-6 rounded-2xl px-4 py-10 sm:w-96 sm:px-8"
         >
+          <SignIn.Strategy name="password">
+            <header className="text-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="lucide lucide-briefcase mx-auto size-10 text-black"
+                viewBox="0 0 24 24"
+              >
+                <path d="M16 20V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"></path>
+                <rect width="20" height="14" x="2" y="6" rx="2"></rect>
+              </svg>
+              <h1 className="mt-4 text-xl font-medium tracking-tight text-neutral-950">
+                Enter password
+              </h1>
+            </header>
+            <Clerk.GlobalError className="block text-sm text-red-600" />
+            <Clerk.Field name="password">
+              <Clerk.Label className="sr-only">Password</Clerk.Label>
+              <Clerk.Input
+                type="password"
+                required
+                placeholder="Password"
+                className="w-full border-b border-neutral-200 bg-white pb-2 text-sm/6 text-neutral-950 outline-none placeholder:text-neutral-400 hover:border-neutral-300 focus:border-neutral-600 data-[invalid]:border-red-600 data-[invalid]:text-red-600"
+              />
+              <Clerk.FieldError className="mt-2 block text-xs text-red-600" />
+            </Clerk.Field>
+            <SignIn.Action submit asChild>
+              <Button className="w-full">Log in</Button>
+            </SignIn.Action>
+          </SignIn.Strategy>
           <SignIn.Strategy name="email_code">
             <header className="text-center">
               <svg
