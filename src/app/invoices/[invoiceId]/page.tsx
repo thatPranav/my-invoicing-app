@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { Invoices } from "@/db/schema";
+import { Customers, Invoices } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
@@ -10,9 +10,9 @@ export default async function InvoicePage({
 }: {
   params: { invoiceId: string };
 }) {
+  const { userId } = await auth();
   const invoiceId = parseInt(params.invoiceId);
 
-  const { userId } = await auth();
 
   if (!userId) return;
 
@@ -20,15 +20,18 @@ export default async function InvoicePage({
     throw new Error("Invalid Invoice ID");
   }
 
-  const [invoice] = await db
+  const [result] = await db
     .select()
     .from(Invoices)
+    .innerJoin(Customers, eq(Invoices.customerId, Customers.id))
     .where(and(eq(Invoices.id, invoiceId), eq(Invoices.userId, userId)))
     .limit(1);
 
-  if (!invoice) {
+  if (!result) {
     notFound();
   }
 
-  return <Invoice invoice={invoice} />;
+  return (
+    <Invoice invoice={{ ...result.invoices, customer: result.customers }} />
+  );
 }

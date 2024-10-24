@@ -15,6 +15,13 @@
       "when": 1729766267593,
       "tag": "0001_famous_warpath",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1729779321068,
+      "tag": "0002_brief_blindfold",
+      "breakpoints": true
     }
   ]
 }
