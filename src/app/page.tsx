@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 export default function Home() {
   return (
     <main className="flex flex-col justify-center h-full text-center gap-6 max-w-5xl mx-auto">
