@@ -1,5 +1,6 @@
 import Container from "@/components/Container";
 import {
+  OrganizationSwitcher,
   SignInButton,
   SignedIn,
   SignedOut,
@@ -19,6 +20,7 @@ const Header = () => {
             <span className="text-slate-300">/</span>
             <SignedIn>
               <span className="-ml-2">
+                <OrganizationSwitcher afterCreateOrganizationUrl="/dashboard" />
               </span>
             </SignedIn>
           </div>
