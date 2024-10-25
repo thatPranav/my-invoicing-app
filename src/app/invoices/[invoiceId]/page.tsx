@@ -1,3 +1,5 @@
+"use client";
+
 import { db } from "@/db";
 import { Customers, Invoices } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
