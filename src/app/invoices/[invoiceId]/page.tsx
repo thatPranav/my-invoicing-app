@@ -1,5 +1,3 @@
-"use client";
-
 import { db } from "@/db";
 import { Customers, Invoices } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
@@ -10,10 +8,10 @@ import Invoice from "./Invoice";
 export default async function InvoicePage({
   params,
 }: {
-  params: { invoiceId: string };
+  params: Promise<{ invoiceId: string }>;
 }) {
   const { userId, orgId } = await auth();
-  const invoiceId = parseInt(params.invoiceId);
+  const invoiceId = parseInt((await params).invoiceId);
 
   if (!userId) return;
 

@@ -53,10 +53,9 @@ export default function Invoice({ invoice }: InvoiceProps) {
       <Container>
         <div className="flex justify-between mb-8">
           <h1 className="flex items-center gap-4 text-3xl font-semibold">
-            Invoices {invoice.id}
+            Invoice {invoice.id}
             <Badge
               className={cn(
-                "rounded-full",
                 "rounded-full capitalize",
                 currentStatus === "open" && "bg-blue-500",
                 currentStatus === "paid" && "bg-green-600",
