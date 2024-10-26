@@ -74,14 +74,16 @@ export default function Invoice({ invoice }: InvoiceProps) {
                   <ChevronDown className="w-4 h-auto" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent className="p-0">
                 {AVAILABLE_STATUSES.map((status) => {
                   return (
-                    <DropdownMenuItem key={status.id}>
-                      <form action={handleOnUpdateStatus}>
+                    <DropdownMenuItem className="p-0" key={status.id}>
+                      <form className="w-full" action={handleOnUpdateStatus}>
                         <input type="hidden" name="id" value={invoice.id} />
                         <input type="hidden" name="status" value={status.id} />
-                        <button>{status.label}</button>
+                        <button className="w-full text-left p-3">
+                          {status.label}
+                        </button>
                       </form>
                     </DropdownMenuItem>
                   );
@@ -98,10 +100,10 @@ export default function Invoice({ invoice }: InvoiceProps) {
                     <ChevronDown className="w-4 h-auto" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>
+                <DropdownMenuContent className="p-0">
+                  <DropdownMenuItem className="p-0">
                     <DialogTrigger asChild>
-                      <button className="flex items-center gap-2">
+                      <button className="flex items-center gap-2 w-full p-3">
                         <Trash2 className="w-4 h-auto" />
                         Delete invoice
                       </button>
